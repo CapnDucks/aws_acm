@@ -75,7 +75,7 @@ variable "region_for_acm" {
 }
 
 variable "tags" {
-  default     = {}
+  default     = null
   description = "Tags for the resource"
   type        = map(string)
 }

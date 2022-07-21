@@ -22,6 +22,14 @@ resource "aws_acm_certificate" "this" {
     certificate_transparency_logging_preference = var.certificate_transparency_logging_preference ? "ENABLED" : "DISABLED"
   }
 
+  tags = merge(
+    {
+      "module"    = "https://github.com/CapnDucks/aws_acm.git"
+      "terraform" = "true"
+    },
+    var.tags,
+  )
+
   lifecycle {
     create_before_destroy = true
   }
