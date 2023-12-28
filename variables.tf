@@ -56,22 +56,10 @@ variable "validation_record_fqdns" {
   default     = []
 }
 
-variable "zone_id" {
-  description = "The ID of the hosted zone to contain this record. Required when validating via Route53"
-  type        = any
-  default     = ""
-}
-
 variable "dns_ttl" {
   description = "The TTL of DNS recursive resolvers to cache information about this record."
   type        = number
   default     = 60
-}
-
-variable "region_for_acm" {
-  default     = "us-east-1"
-  description = "Which region should I create the certificate in (default us-east-1 for cloudfront)"
-  type        = string
 }
 
 variable "tags" {
