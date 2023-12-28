@@ -1,0 +1,43 @@
+name: terraform validation
+on:
+  pull_request:
+    branches:
+      - main
+      - develop
+      - 'release/**'  
+  workflow_dispatch:
+
+permissions: write-all
+
+jobs:
+  terraform-validation:
+    runs-on: [ ubuntu-latest ]
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        ref: ${{ github.head_ref }}
+    - uses: hashicorp/setup-terraform@v2
+      with: 
+        terraform_wrapper: true
+        terraform_version: 1.6.0
+    - uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+
+    - name: Terraform fmt
+      id: fmt
+      run: terraform fmt -diff
+      
+    - name: Terraform Init
+      id: init
+      run: terraform init -backend=false
+      if: success() || failure() #https://github.community/t/continue-on-error-allow-failure-ui-indication/16773
+
+    - name: Terraform Validate
+      id: validate
+      run: terraform validate -no-color
+      if: success() || failure()
+      
+    - name: Check for modified files
+      id: git-check
+      run: echo ::set-output name=modified::$(if [ -n "$(git status --porcelain)" ]; then echo "true"; else echo "false"; fi)
