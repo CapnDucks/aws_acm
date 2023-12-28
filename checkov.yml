@@ -1,0 +1,13 @@
+# Configuration
+framework: terraform
+compact: true
+
+## Checks - uncomment the line below and add rules to ignore.
+skip-check:
+  - CKV_AWS_293 # Ensure that AWS database instances have deletion protection enabled
+  - CKV_TF_1 # Ensure Terraform module sources use a commit hash
+  - CKV_AWS_354
+  - CKV_AWS_129
+  - CKV_AWS_118
+  - CKV_AWS_157
+  - CKV_AWS_353
