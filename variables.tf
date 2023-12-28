@@ -79,3 +79,15 @@ variable "tags" {
   description = "Tags for the resource"
   type        = map(string)
 }
+
+variable "private_zone" {
+  default     = null
+  description = "Is the zone private?"
+  type        = bool
+}
+
+variable "aws_region" {
+  default     = "us-east-1"
+  description = ""
+  type        = string
+}
